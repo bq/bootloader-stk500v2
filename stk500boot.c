@@ -572,7 +572,11 @@ int main(void)
 	// check if WDT generated the reset, if so, go straight to app
 	if (mcuStatusReg & _BV(WDRF))
 	{
-		app_start();
+		asm volatile(
+			"clr	r30		\n\t"
+			"clr	r31		\n\t"
+			"ijmp	\n\t"
+		);
 	}
 	//************************************************************************
 #endif
